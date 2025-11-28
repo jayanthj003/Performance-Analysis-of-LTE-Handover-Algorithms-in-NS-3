@@ -1,95 +1,61 @@
-# Performance-Analysis-of-LTE-Handover-Algorithms-in-NS-3
+# Performance Analysis of LTE Handover Algorithms in NS-3
+
 ## Project Overview
-This project evaluates and compares the performance of different handover algorithms in NS-3 by simulating an 8-cell LTE network. The analysis focuses on how varying mobility speeds and handover strategies impact key performance metrics such as throughput, SINR, and handover frequency.
+This project evaluates and compares the performance of different LTE handover algorithms using NS-3. An 8-cell LTE network is simulated to analyze how varying UE mobility speeds and handover strategies affect key performance metrics, such as throughput, SINR, and handover frequency.
 
-# LTE Handover Algorithm Performance Evaluation
+---
+
 ## Simulation Architecture
-- **Network Topology**: 8-cell hexagonal LTE network with P-GW and Remote Host
-- **Coverage**: Continuous coverage without holes, 250m inter-eNB distance
-- **Base Stations**: 8 eNBs with 20 dBm transmission power
-- **User Equipment**: 3 UEs per eNB (24 total), randomly placed within 100m radius
-- **Traffic**: UDP flows (1.2 Mbps per UE) and TCP flows (bonus task)
+- **Network Topology**: 8-cell hexagonal LTE network
+- **Coverage**: Continuous coverage, 250 m inter-eNB distance
+- **Base Stations**: 8 eNBs, 20 dBm transmission power
+- **User Equipment**: 3 UEs per eNB (24 total), randomly placed within 100 m radius
+- **Traffic**: UDP flows (1.2 Mbps per UE) and TCP flows for bonus analysis
 
-## Handover Algorithms Evaluated
-1. **A3-RSRP Handover Algorithm** (Strongest Cell)
-2. **A2-A4-RSRQ Handover Algorithm**
-3. **No-Op Handover** (baseline)
+### Handover Algorithms Evaluated
+1. **A3-RSRP Handover** (Strongest Cell)
+2. **A2-A4-RSRQ Handover**
+3. **No-Op Handover** (Baseline)
 
-## Key Features
-- **Mobility Simulation**: RandomWalk2d mobility model at 10 m/s, 50 m/s, and 100 m/s
-- **Automated Experiments**: 5 seeds per configuration for statistical reliability
-- **Performance Metrics**: 
-  - Aggregate system throughput
-  - Instantaneous throughput traces
-  - RSRP (Reference Signal Received Power)
-  - SINR Radio Environment Maps
-  - Handover frequency and failures
-- **Parameter Optimization**: Hysteresis (1, 3, 6 dB) and Neighbor Cell Offset (1, 2, 5 RSRQ)
+### Mobility Simulation
+- **Model**: RandomWalk2d
+- **Speeds**: 10 m/s, 50 m/s, 100 m/s
+
+### Key Performance Metrics
+- Aggregate system throughput
+- Instantaneous per-UE throughput
+- RSRP traces
+- SINR Radio Environment Maps
+- Handover frequency and failures
+
+### Parameter Optimization
+- Hysteresis: 1, 3, 6 dB
+- Neighbor cell offset: 1, 2, 5 RSRQ
+
+---
 
 ## Simulation Parameters
-| Parameter | Value |
-|-----------|-------|
-| UEs per eNB | 3 (1 DL UDP flow each) |
-| Number of eNBs | 8 |
-| eNB Tx Power | 20 dBm (0.1W) |
-| UDP Traffic Rate | 1.2 Mbps (1500 bytes/10ms) |
-| Resource Blocks | 50 DL, 50 UL (LTE FDD) |
-| Scheduler | Proportional Fair (PF) |
-| Simulation Duration | 10 seconds |
-| Mobility Speeds | 10, 50, 100 m/s |
 
-## Results & Visualizations
-The project generates six main graphs plus bonus TCP analysis:
+| Parameter           | Value                          |
+|--------------------|--------------------------------|
+| UEs per eNB        | 3 (1 DL UDP flow each)         |
+| Number of eNBs     | 8                              |
+| eNB Tx Power       | 20 dBm (0.1 W)                |
+| UDP Traffic Rate   | 1.2 Mbps (1500 bytes / 10 ms) |
+| Resource Blocks    | 50 DL / 50 UL (LTE FDD)       |
+| Scheduler          | Proportional Fair (PF)         |
+| Simulation Duration| 10 seconds                     |
+| Mobility Speeds    | 10, 50, 100 m/s               |
 
-1. **SINR Radio Environment Map** - 8-cell topology coverage visualization
-2. **RSRP Traces** - Time-series analysis for highest handover UE at different speeds
-3. **Instantaneous Throughput** - Per-UE throughput variation during mobility
-4. **Hysteresis Impact** - Average handovers vs. hysteresis values (A3-RSRP)
-5. **Neighbor Cell Offset Impact** - Average handovers vs. offset values (A2-A4-RSRQ)
-6. **Aggregate System Throughput** - Comparative performance across algorithms and speeds
+---
 
-### Bonus: TCP Performance Analysis
-- TCP throughput vs. UDP comparison during handovers
-- Congestion window behavior during handover events
-- Analysis of TCP NewReno/CUBIC resilience to mobility
-
-## Technologies Used
-- **NS-3 (Network Simulator 3)** - LENA LTE module
-- **C++** - Simulation scripting (asg2.cc)
-- **Python/Bash** - Automation and data processing
-- **Gnuplot** - Data visualization
-- **FlowMonitor** - Aggregate flow-level statistics
-- **NS-3 Stats** - DL-RLC, DL-RSRP traces
-
-## Project Structure
-```
-├── asg2.cc                    # Main simulation script
-├── scripts/
-│   ├── run_simulations.sh     # Automated experiment runner
-│   ├── process_stats.py       # Stats collection and processing
-│   └── generate_plots.sh      # Gnuplot automation
-├── data/
-│   ├── dl-rlc-stats/          # RLC layer statistics
-│   ├── dl-rsrp-stats/         # RSRP measurements
-│   └── flowmon-results/       # FlowMonitor outputs
-├── plots/                     # Generated graphs
-├── report.pdf                 # Detailed analysis report
-└── README.md                  # This file
-```
-
-## Prerequisites
-- NS-3 (version 3.19 or higher) with LENA LTE module
-- GCC/G++ compiler (C++11 support)
-- Python 3.x
-- Gnuplot 5.0 or higher
-- Bash shell
 
 ## Installation & Setup
 
 ### 1. Clone the Repository
 ```bash
-git clone https://github.com/yourusername/lte-handover-evaluation.git
-cd lte-handover-evaluation
+git clone https://github.com/jayanthj003/Performance-Analysis-of-LTE-Handover-Algorithms-in-NS-3.git
+cd Performance-Analysis-of-LTE-Handover-Algorithms-in-NS-3
 ```
 
 ### 2. Copy Simulation Files to NS-3
@@ -108,84 +74,75 @@ cd ~/ns-3.X/
 
 ## Running Simulations
 
-### Single Experiment
-Run a single configuration:
-```bash
-./ns3 run "scratch/asg2 --handoverAlgo=A3-RSRP --speed=50 --RngRun=1"
+### Prerequisites
+- Python modules listed in `requirements.txt`
+- NS-3 development environment (`ns-3-dev`) with LENA LTE module
+- Bash shell
+
+### Steps
+1. Place the `asg2` directory inside `ns-3-dev/scratch/`.
+2. Open a terminal and navigate to `ns-3-dev/scratch/asg2`.
+3. Make the main script executable and run it:
+   ```bash
+   chmod +x go.sh
+   ./go.sh
+   ```
+4. Generated statistics will be saved in the scratch/asg2 folder.
+5. Generated plots will be in scratch/asg2/Graph* and scratch/asg2/Graph*_Bonus.
+
+## File structure
 ```
+Performance-Analysis-of-LTE-Handover-Algorithms-in-NS-3/
+├── asg2.cc                  # Main NS-3 simulation script
+├── go.sh                     # Script to run all simulations and generate stats/plots
+├── requirements.txt          # Python modules required
+├── max_handover_IMSI         # Used for identifying UE with maximum handovers
+├── Graph1/                   # REM plot
+│   └── rem_plot.png
+├── Graph2/                   # RSRP traces
+│   ├── speed=10/
+│   ├── speed=50/
+│   └── speed=100/
+├── Graph3/                   # Instantaneous throughput
+│   ├── speed=10/
+│   ├── speed=50/
+│   └── speed=100/
+├── Graph4/                   # Hysteresis impact
+│   ├── speed=10/
+│   ├── speed=50/
+│   └── speed=100/
+├── Graph5/                   # Neighbor cell offset impact
+│   ├── speed=10/
+│   ├── speed=50/
+│   └── speed=100/
+├── Graph6/                   # Average aggregate system throughput
+│   ├── A2A4RsrqHandover/
+│   ├── A3RsrpHandover/
+│   └── NoOpHandover/
+├── Graph1_Bonus/             # TCP performance REM plots
+│   ├── speed=10/
+│   ├── speed=50/
+│   └── speed=100/
+├── Graph2_Bonus/             # TCP cwnd plots
+│   ├── speed=10/
+│   ├── speed=50/
+│   └── speed=100/
+├── NoOp
+├── A3Rsrp
+├── A2A4Rsrq
+├── hyst_report
+└── nb_offset_report
+# Python/Gnuplot scripts for plotting
+├── rem-plot.gp
+├── plot_rsrp.py
+├── plot_inst_tput.py
+├── hyst_plotter.py
+├── offset_plotter.py
+├── plot_agg_tputs.py
+├── plot_inst_tput_bonus.py
+├── plot_cwnd_bonus.py
 
-**Command-line Arguments:**
-- `--handoverAlgo`: Handover algorithm (A3-RSRP, A2-A4-RSRQ, NoOp)
-- `--speed`: UE mobility speed in m/s (10, 50, 100)
-- `--RngRun`: Random seed value (1-5)
-- `--hysteresis`: Hysteresis value in dB (default: 3, range: 1-6)
-- `--offset`: Neighbor cell offset in RSRQ (default: 2, range: 1-5)
-
-### Automated Full Experiment Suite
-Run all experiments automatically:
-```bash
-cd scripts/
-chmod +x run_simulations.sh
-./run_simulations.sh
 ```
-
-This script will:
-- Run simulations for all combinations of algorithms, speeds, and seeds
-- Collect statistics in the `data/` directory
-- Generate summary files for analysis
-
-**Estimated Runtime**: 2-4 hours depending on hardware
-
-## Data Collection & Processing
-
-### Process Statistics
-After running simulations, process the collected data:
-```bash
-cd scripts/
-python3 process_stats.py
-```
-
-This will generate:
-- CSV files with aggregated metrics
-- Handover count summaries
-- Throughput statistics per UE and per cell
-
-## Generate Plots
-
-### Generate All Graphs
-```bash
-cd scripts/
-chmod +x generate_plots.sh
-./generate_plots.sh
-```
-
-Generated plots will be saved in the `plots/` directory:
-- `graph1_rem.png` - SINR Radio Environment Map
-- `graph2_rsrp_traces.png` - RSRP vs. Time
-- `graph3_throughput_traces.png` - Instantaneous Throughput
-- `graph4_hysteresis_impact.png` - Hysteresis Analysis
-- `graph5_offset_impact.png` - Offset Analysis
-- `graph6_aggregate_throughput.png` - System Performance Comparison
-
-### Generate Individual Graphs
-```bash
-gnuplot scripts/plot_rsrp.gp
-gnuplot scripts/plot_throughput.gp
-# ... etc.
-```
-
-## Output Files
-
-### Statistics Files
-- `dl-rlc-stats.txt` - Downlink RLC layer statistics
-- `dl-rsrp-stats.txt` - RSRP measurements per UE
-- `handover-stats.txt` - Handover event logs
-- `flowmon-results.xml` - FlowMonitor output
-
-### Processed Data
-- `results/handover_summary.csv` - Handover counts per configuration
-- `results/throughput_summary.csv` - Average throughput metrics
-- `results/ue_traces.csv` - Per-UE time-series data
 
 ## Key Findings
 - **Hysteresis Impact**: Optimal hysteresis value of 3 dB balances handover frequency and performance
